@@ -1,0 +1,32 @@
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+
+.Home_page_box_card{
+    margin: 10px;box-shadow:0 0 10px darkgrey; border-radius:3px; background-color: white;
+}
+
+.Home_page_card_content{
+    padding: 0 10px;
+}
+
+.Home_page_box_card img{
+    width: 100%;
+    padding-top: 10px;
+}
+
+.home_page_card_content_footer{
+    font-size: 11px; color: darkgray;
+}
+
+.home_page_card_text{
+    font-size: 14px; clear: both; line-height: 25px;letter-spacing: 2.2px; margin: 30px 20px 10px 10px;
+}
+
+.home_page_card_text_footer{
+    font-size: 11px; color: darkgray; text-align: right; padding-right: 10px;
+}

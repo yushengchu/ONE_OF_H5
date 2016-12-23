@@ -1,0 +1,85 @@
+<!--  main.html 入口文件 -->
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+        <title>选项卡演示</title>
+        <link href="css/mui.min.css" rel="stylesheet" />
+        <style>
+        </style>
+    </head>
+
+    <body>
+        <div class="mui-content">
+            <nav id="bar" class="mui-bar mui-bar-tab">
+                <a class="mui-tab-item mui-active" href="HTML/Home.html" data-id="main">
+                    <span class="mui-icon mui-icon-home"></span>
+                    <span class="mui-tab-label">首页</span>
+                </a>
+                <a class="mui-tab-item" href="HTML/ready.html" data-id="message">
+                    <span class="mui-icon mui-icon-email"></span>
+                    <span class="mui-tab-label">阅读</span>
+                </a>
+                <a class="mui-tab-item" href="HTML/musci.html" data-id="contact">
+                    <span class="mui-icon mui-icon-contact"></span>
+                    <span class="mui-tab-label">音乐</span>
+                </a>
+                <a class="mui-tab-item" href="HTML/movie.html" data-id="setting">
+                    <span class="mui-icon mui-icon-gear"></span>
+                    <span class="mui-tab-label">电影</span>
+                </a>
+            </nav>
+        </div>
+        
+    </body>
+</html>
+<script src="js/mui.min.js"></script>
+ <script>
+     mui.init();
+     mui.plusReady(function() {
+     var self = plus.webview.currentWebview();
+     var current = '';
+     var styles = {
+     top: '0',
+     bottom: '51px'
+     };
+                var tabsConfig = {
+                    main: {
+                        url: 'HTML/Home.html',
+                        styles: styles,
+                        default: true
+                    },
+                    message: {
+                        url: 'HTML/ready.html',
+                        styles: styles
+                    },
+                    contact: {
+                        url: 'HTML/musci.html',
+                        styles: styles
+                    },
+                    setting: {
+                        url: 'HTML/movie.html',
+                        styles: styles
+                    }
+                };
+                var tabs = {};
+                for (id in tabsConfig) {
+                    tabs[id] = plus.webview.create(tabsConfig[id].url, id, tabsConfig[id].styles);
+                    if (tabsConfig[id]['default']) {
+                        self.append(tabs[id]);
+                        current = id;
+                    }
+                }
+                mui('#bar').on('tap', 'a', function(e) {
+                    if (current == this.dataset.id) {
+                        mui.fire(tabs[current], 'scroll2top');
+                        return;
+                    }
+                    tabs[this.dataset.id].show();
+                    tabs[current].hide();
+                    current = this.dataset.id;
+                });
+            });
+        </script>
