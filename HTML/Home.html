@@ -9,6 +9,7 @@
 		<link rel="stylesheet" href="../css/swiper.min.css">
 		<link rel="stylesheet" href="../css/main.css">
 		<script src="../js/jquery-1.9.1.js"></script>
+
 	</head>
 
 	<body style="background-color: white;">
@@ -22,82 +23,7 @@
 
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide">
-						<div class="Home_page_box">
-							<div class="Home_page_box_card">
-								<div class="Home_page_card_content">
-									<img src="../images/content.png">
-									<div class="home_page_card_content_footer">
-										<div class="left">vol.1523</div>
-										<div class="right">独自-jiangdada作品</div>
-									</div>
-								</div>
-								<div class="home_page_card_text">
-									或许,最好的缘分,不是在人海中相遇,是不在人潮中走丢,最好的结局,不是在一起,是不忘记.by 鹿鸣
-								</div>
-								<div class="home_page_card_text_footer">Wed 7
-									Dec.2016
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="Home_page_box">
-							<div class="Home_page_box_card">
-								<div class="Home_page_card_content">
-									<img src="../images/content.png">
-									<div class="home_page_card_content_footer">
-										<div class="left">vol.1523</div>
-										<div class="right">独自-jiangdada作品</div>
-									</div>
-								</div>
-								<div class="home_page_card_text">
-									或许,最好的缘分,不是在人海中相遇,是不在人潮中走丢,最好的结局,不是在一起,是不忘记.by 鹿鸣
-								</div>
-								<div class="home_page_card_text_footer">Wed 7
-									Dec.2016
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="Home_page_box">
-							<div class="Home_page_box_card">
-								<div class="Home_page_card_content">
-									<img src="../images/content.png">
-									<div class="home_page_card_content_footer">
-										<div class="left">vol.1523</div>
-										<div class="right">独自-jiangdada作品</div>
-									</div>
-								</div>
-								<div class="home_page_card_text">
-									或许,最好的缘分,不是在人海中相遇,是不在人潮中走丢,最好的结局,不是在一起,是不忘记.by 鹿鸣
-								</div>
-								<div class="home_page_card_text_footer">Wed 7
-									Dec.2016
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="swiper-slide">
-						<div class="Home_page_box">
-							<div class="Home_page_box_card">
-								<div class="Home_page_card_content">
-									<img src="../images/content.png">
-									<div class="home_page_card_content_footer">
-										<div class="left">vol.1523</div>
-										<div class="right">独自-jiangdada作品</div>
-									</div>
-								</div>
-								<div class="home_page_card_text">
-									或许,最好的缘分,不是在人海中相遇,是不在人潮中走丢,最好的结局,不是在一起,是不忘记.by 鹿鸣
-								</div>
-								<div class="home_page_card_text_footer">Wed 7
-									Dec.2016
-								</div>
-							</div>
-						</div>
-					</div>
+
 				</div>
 			</div>
 
@@ -123,20 +49,47 @@
 
 <script src="../js/mui.min.js"></script>
 <script src="../js/swiper.min.js"></script>
+<script src="../js/jquery.tmpl.min.js"></script>
+
+<script id="textTmpl" type="x-jquery-tmpl">
+	<div class="swiper-slide">
+						<div class="Home_page_box">
+							<div class="Home_page_box_card">
+								<div class="Home_page_card_content">
+									<img src=${hp_img_original_url}>
+									<div class="home_page_card_content_footer">
+										<div class="left">${hp_title}</div>
+										<div class="right">${hp_author}</div>
+									</div>
+								</div>
+								<div class="home_page_card_text">
+									${hp_content}
+								</div>
+								<div class="home_page_card_text_footer">
+									${hp_makettime}
+								</div>
+							</div>
+						</div>
+					</div>
+</script>
+
 <script type="text/javascript">
 	mui.init();
     var mySwiper = new Swiper('.swiper-container',{
         loop: false,
     });
 
-
     $(function () {
         $.getJSON("http://v3.wufazhuce.com:8000/api/hp/more/0",{'version':'v3.5.3','platform':'ios','user_id':''},
             function (result) {
-				$(document).createElement('')
-            }
+            	console.log(result['data'][0]);
+				for (var i = 0;i<result['data'].length;i++) {
+					$('#textTmpl').tmpl(result['data'][i]).appendTo('.swiper-wrapper');
+				}
+				mySwiper.update(true);
+			}
         );
     })
 
-
 </script>
+
